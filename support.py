@@ -13,7 +13,7 @@ address =       "192.168.0.201"
 port =          8883
 auPort =        10001
 user =          "AAU" 
-password =      "00007070"
+password =      ""
 START =         False
 
 factory = None
