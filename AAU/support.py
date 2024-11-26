@@ -11,18 +11,18 @@ import time
 import support
 import threading
 
-scriptFile = "/Storehouse/Bitni projekti/KS Smart Systems/AAU/scripts/script.kst"
-backupScript = "/Storehouse/Bitni projekti/KS Smart Systems/AAU/scripts/backup.kst"
-test = "/Storehouse/Bitni projekti/KS Smart Systems/AAU/scripts/example.kst"
-certificate = "/Storehouse/Bitni projekti/_mosquitto_keys/ca.crt"
-serverKey = "/Storehouse/Bitni projekti/_mosquitto_keys/broker.key"
-serverCertificate = "/Storehouse/Bitni projekti/_mosquitto_keys/broker.crt"
+scriptFile = ""
+backupScript = ""
+test = ""
+certificate = ""
+serverKey = ""
+serverCertificate = ""
 
-address =       "192.168.0.201"
+address =       ""
 port =          8883
 auPort =        10001
-user =          "AAU" 
-password =      "00007070"
+user =          "" 
+password =      ""
 START =         False
 
 factory = None
