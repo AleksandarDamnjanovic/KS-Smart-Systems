@@ -1,3 +1,12 @@
+'''
+*************** Name: KS Node
+*************** Part of: KS Smart Systems
+*************** Author: Aleksandar Damnjanovic AKA Kind Spirit
+*************** YouTube channel: Kind Spirit Technology
+*************** Date: 26.11.2024.
+*************** Location: Kragujevac, Serbia
+'''
+
 import re
 import datetime
 import time

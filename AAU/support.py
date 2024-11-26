@@ -1,13 +1,22 @@
+'''
+*************** Name: KS Node
+*************** Part of: KS Smart Systems
+*************** Author: Aleksandar Damnjanovic AKA Kind Spirit
+*************** YouTube channel: Kind Spirit Technology
+*************** Date: 26.11.2024.
+*************** Location: Kragujevac, Serbia
+'''
+
 import time
 import support
 import threading
 
-scriptFile = "/home/kst/Automatizacija/script/script.kst"
-backupScript = "/home/kst/Automatizacija/script/backup.kst"
-test = "/home/kst/Automatizacija/script/example.kst"
-certificate = "/home/kst/Automatizacija/security/ca.crt"
-serverKey = "/home/kst/Automatizacija/security/broker.key"
-serverCertificate = "/home/kst/Automatizacija/security/broker.crt"
+scriptFile = "/Storehouse/Bitni projekti/KS Smart Systems/AAU/scripts/script.kst"
+backupScript = "/Storehouse/Bitni projekti/KS Smart Systems/AAU/scripts/backup.kst"
+test = "/Storehouse/Bitni projekti/KS Smart Systems/AAU/scripts/example.kst"
+certificate = "/Storehouse/Bitni projekti/_mosquitto_keys/ca.crt"
+serverKey = "/Storehouse/Bitni projekti/_mosquitto_keys/broker.key"
+serverCertificate = "/Storehouse/Bitni projekti/_mosquitto_keys/broker.crt"
 
 address =       "192.168.0.201"
 port =          8883
