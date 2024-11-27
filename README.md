@@ -134,3 +134,84 @@ Function naming applies here too. Function of type serial is written in a single
 With function timeLim, you are able to define execution time of some other function. For example, if you want your serial program or conditional program to be executed only between 12:00 and 14:00, as a first argument to the timeLim function, you are goint to provide function name of the function you want to limit by time, as second argument you are goint to provide string variable that hold value of "12:00" and as third argument, string variable that holds value of "14:00".
 
 Therefore default value of variable of type fun that hold function name of the function you want to limit by time is 1. That means that function is going to be executed by default exept if it is provided to timeLim function. timeLim function keeps value of fun variable to 1 only in selected time; in other case, it keeps it to 0. If value of naming variable is 0 that measn that that function is going to be ignored; if is 1 it is going to be executed.
+
+### Example
+
+    1("North entrance", "northEntrance", [SLAVE, 5])    {
+        
+        <variables>
+            
+            global float   $res01 =            0.0
+            global float   $res02 =            0.0
+            global int     $current =          0
+            global int     $mode =             0
+            global int     $button =           0
+            global array   $acModeNames =       ["OFF", "COOLING", "HEATING"]
+            global array   $acModes =          [0,  1, 2]
+            global array   $ttest =             [0-152]
+            global int     $ACselectedMode =   0
+            global string  $t1 =               "0"
+            global int     $c1 =               0
+            global string  $fl1 =              ""
+            global string  $ft1 =              ""
+            global int     $fc1 =              0
+            global int     $c2 =               0
+    
+            int     $e1 =               10
+            int     $switchEp =         3
+            float   $tempLimUp =        24.0
+            float   $tempLimDown =      21.0
+            int     $tempState =        0
+            string  $start =            "20:00"
+            string  $end =              "5:00"
+            int     $sTime =            0
+            string  $start1 =           "5:00"
+            string  $end1 =             "4:45"
+            int     $sTime1 =           0
+            int     $lastIndex =        0
+            int     $lastIndex1 =       0
+            array   $listOfSwitches =   [$1$c1,     $1$c2]
+            fun     $example =          1
+            fun     $fun01 =            1
+            fun     $fun02 =            1
+        </variables>
+    
+        <sensors>
+            sensor("temp", 0, $e1, $res01);
+            sensor("moist", 1, NULL, $res02);
+            sensor("current", 2, NULL, $current);
+            sensor("AC mode", 3, NULL, $mode);
+            sensor("AC button", 5, NULL, $button);
+        </sensors>
+    
+        <elements>
+            list("AC modes", 0, $acModes,   $acModeNames, $ACselectedMode, $fl1);
+            trigger("AC switch", 1, $t1, $ft1);
+            switch("light", 0, $c1, $fc1);
+        </elements>
+    
+        <programs>
+            $example = valCondition(
+                "temp on",
+                $res01 < $tempLimDown
+                $c1 == 0, 
+                $c1 = 1
+                $tempState = 1
+            );
+            valCondition(
+                "temp off",
+                $res01 > $tempLimUp
+                $tempState == 1,
+                $c1 = 0
+                $tempState = 0
+            );
+            $fun01= serial("two switches",  $listOfSwitches, $switchEp, $sTime,  $lastIndex);
+            $fun02= serial("two switches copy",     $listOfSwitches, $switchEp, $sTime1,    $lastIndex1);
+            serial("two switches copy 2",   $listOfSwitches, $switchEp, $sTime1,  $lastIndex1);
+            timeLim($fun01, $start, $end);
+            timeLim($fun02, $start1, $end1);
+        </programs>
+    
+    }
+
+
