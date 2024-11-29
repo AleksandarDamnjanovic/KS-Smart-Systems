@@ -18,15 +18,15 @@
 #define NODE_SHUNT       2
 #define NODE_BRIDGE      3
 
-#define NODE_FINGERPRINT         "94 E1 61 93 14 59 B2 72 2E E6 91 25 DB 70 27 9C 6F 75 AF 93"
-#define NODE_WLAN_SSID           "Freja_Damnjanovic"
-#define NODE_WLAN_PASSWORD       "svarun444svarun"
+#define NODE_FINGERPRINT         ""
+#define NODE_WLAN_SSID           ""
+#define NODE_WLAN_PASSWORD       ""
 
-#define NODE_SERVER_ADDRESS      "192.168.0.201"
+#define NODE_SERVER_ADDRESS      ""
 #define NODE_SERVER_PORT         8883
 
-#define NODE_MQTT_USERNAME       "AC2f"
-#define NODE_MQTT_PASSWORD       "00007070"
+#define NODE_MQTT_USERNAME       ""
+#define NODE_MQTT_PASSWORD       ""
 
 class NODE{
     public:
