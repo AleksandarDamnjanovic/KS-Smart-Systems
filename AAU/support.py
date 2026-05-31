@@ -1,19 +1,13 @@
-'''
-*************** Name: KS Node
-*************** Part of: KS Smart Systems
-*************** Author: Aleksandar Damnjanovic AKA Kind Spirit
-*************** YouTube channel: Kind Spirit Technology
-*************** Date: 26.11.2024.
-*************** Location: Kragujevac, Serbia
-'''
-
 import time
 import support
 import threading
+from accessories.ks_logger import logit
+
+lock = threading.Lock()
 
 scriptFile = ""
-backupScript = ""
-test = ""
+baskupScriptFile = ""
+logFile = ""
 certificate = ""
 serverKey = ""
 serverCertificate = ""
@@ -37,17 +31,16 @@ class communication(threading.Thread):
     def run(self):
         done= False
         while(not done):
-            print(f"Trying to connect to topic {self.__topic}")
+            logit(f"Trying to connect to topic {self.__topic}", 0)
             time.sleep(0.5)
             try:
                 self.__client.connect(support.address, support.port)
                 done = True
             except Exception as e:
-                print(f"--communication loop-- error message:{e}")
+                logit(f"--communication loop-- error message:{e}", 2)
 
         self.__client.subscribe(self.__topic)
-        print(self.__topic)
-        print("listening...")
+        logit(f"{self.__topic} ... listening")
         while(True):
             self.__client.loop_start()
             time.sleep(1)

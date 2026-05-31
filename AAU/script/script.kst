@@ -1,0 +1,157 @@
+1("First floor", "1f", [MASTER]){
+    
+    <variables>
+        global      int         $e1 =               10
+        global      float       $res01 =            0.0
+        global      float       $res02 =            0.0
+        global      int         $c1 =               0
+        global      int         $c2 =               0
+                    int         $f1 =               0
+                    int         $f2 =               0
+                    string      $t1 =               "3"
+                    string      $ft1 =              ""
+                    string      $start =            "19:20"
+                    string      $end =              "6:00"
+                    fun         $lightsON =         0
+                    int         $opop =             0
+                    array       $ha =               [$c1, $c2]
+                    int         $haha =             4
+                    int         $bo =               0
+                    array       $listOfSwitches =   [$c1, $c2]
+                    int         $switchEp =         3
+                    int         $time =             0
+                    int         $lastIndex =        0
+                    array       $lv =               [0, 1, 2]
+                    array       $ln =               ["off", "cooling", "heating"]
+                    int         $l1 =               1
+                    string      $lf1 =              "1"
+
+    </variables>
+
+    <sensors>
+        sensor("temp", 0, $e1, $res01)
+        sensor("moist", 1, NULL, $res02)
+    </sensors>
+
+    <elements>
+        switch("light0", 0, $c1, $f1)
+        switch("light1", 1, $c2, $f2)
+        trigger("TempValue", 0, $t1, $ft1)
+        list("lista", 1, $lv, $ln, $l1, $lf1)
+    </elements>
+
+    <programs>
+        valCondition(
+            "light on",
+            $lightsON == 1,
+            $c1 = 1
+        );
+        valCondition(
+            "light off",
+            $lightsON == 0,
+            $c1 = 0
+        );
+        timeLim($lightsON, $start, $end);
+        serial("entire row", $listOfSwitches, $switchEp, $time, $lastIndex);
+    </programs>
+
+}
+
+2("Second floor", "2f", [MASTER]){
+
+    <variables>
+        global int     $e1 =           10
+        global float   $res01 =        0.0
+        global int     $c1 =           1
+
+	    array   $listOfSwitchesCopy = [$c1, $3$c1, $4$c1, $6$c1, $7$c1, $7$c2, $7$c3, $7$c4]
+
+	    int $switchEp = 300
+	    int $time = 0
+	    int $lastIndex = 0
+        int $f1 = 1
+    </variables>
+
+    <sensors>
+        sensor("dummy", 0, $e1, $res01)
+    </sensors>
+
+    <elements>
+        switch("IR pannel", 0, $c1, $f1)
+    </elements>
+
+    <programs>
+	    serial("entire row", $listOfSwitchesCopy, $switchEp, $time, $lastIndex);
+    </programs>
+
+}
+
+3("Third floor", "3f", [MASTER]){
+
+    <variables>
+        global int     $e1 =           10
+        global float   $res01 =        0.0
+        global float   $res02 =        0.0
+        global int     $c1 =           0
+        int            $f1 =           0
+    </variables>
+
+    <sensors>
+        sensor("temp", 0, $e1, $res01)
+        sensor("moist", 1, NULL, $res02)
+    </sensors>
+
+    <elements>
+        switch("IR pannel", 0, $c1, $f1)
+    </elements>
+
+    <programs>
+    </programs>
+
+}
+
+4("Fourt floor", "4f", [MASTER]){
+
+    <variables>
+        global int     $e1 =           10
+        global int     $red =          0
+        global int     $green =        0
+        global int     $blue =         0
+        global int     $r =            70
+        global int     $g =            70
+        global int     $b =            70
+        global int     $mode =         0
+        global int     $special =      0
+
+        string         $rf =            ""
+        string         $gf =            ""
+        string         $bf =            ""
+        string         $modef =         ""
+        string         $specialf =      ""
+        array          $lll =           [0-255]
+        array          $prog =          [0, 1]
+        array          $progname =      ["Direct", "Predefined programs"]
+        array          $proglist =      [0, 1, 2]
+    </variables>
+
+    <sensors>
+        sensor("red", 0, $e1, $red)
+        sensor("green", 1, NULL, $green)
+        sensor("green", 2, NULL, $blue)
+        sensor("mode", 3, NULL, $mode)
+        sensor("special", 4, NULL, $special)
+    </sensors>
+
+    <elements>
+        switch("light", 0, $c1, $f2)
+        list("Color Red", 0, $lll, $lll, $r, $rf)
+        list("Color Green", 1, $lll, $lll, $g, $gf)
+        list("Color Blue", 2, $lll, $lll, $b, $bf)
+        list("Color ribbon mode", 3, $prog, $progname, $mode, $modef)
+        list("Color program", 4, $proglist, $proglist, $special, $specialf)
+    </elements>
+
+    <programs>
+    </programs>
+
+}

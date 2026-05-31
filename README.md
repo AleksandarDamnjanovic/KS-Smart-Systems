@@ -1,24 +1,24 @@
-![](logo.png)
+![](banner.jpg)
 
 # KS Smart System
 
 ## Intro
-KS Smart System is built with idea for more abstract approach to building of smart home and other smart systems. When building smart home, engineer usually have to worry about both electric, electronics and computer elements of the system. With this solution, after system is set up from hardware perspective, everithing else is going to be dealt with from KST script. You can consider KST script as programming language for your smart home for the purpose that you will not have to worry any more about voltage and pins, but about switches, transmitters and sensors, meaning script primitives which define your system.
+KS Smart System is built with idea for more abstract approach to building of smart home and other smart systems. When building smart home, engineer usually have to worry about both electric, electronics and computer elements of the system. With this solution, after system is set up from hardware perspective, everything else is going to be dealt with from KST script. You can consider KST script as programming language for your smart home for the purpose that you will not have to worry any more about voltage and pins, but about switches, transmitters and sensors, meaning script primitives which define your system.
 
-What all of this means? Means that once you finish with setting up of your nodes, you can do all sorts of tweeks and changes without having to handle soldering iron or multimeter, or having to reprogram your microcontrollers.
+What all of this means? Means that once you finish with setting up of your nodes, you can do all sorts of tweeks and changes without having to handle soldering iron or multi-meter, or having to flash your micro controllers.
 
 ## What this solution contains
 Inside of this solution, you are going to find two projects. 
 
-- First is **AAU**, written in python. This is interpreter for kst script and the core part of the solution. AAU delegates instructions to nodes, according to the script; receives responses from nodes and applies 
-received values. AAU has access to all mqtt topics(communication channels). In addition AAU has access to admin topic that can be used to send direct commands in real time to AAU and change working script without restarting of entire system. This last functionality can be use for further developlent of API.
+- First is **AAU**, written in python. This is interpreter for .kst script and the core part of the solution. AAU(or 2AU) delegates instructions to nodes, according to the script; receives responses from nodes and applies 
+received values. AAU has access to all MQTT topics(communication channels). In addition, AAU has access to admin topic that can be used to send direct commands in real time to AAU and changes working script without restarting of entire system. This last functionality can be use for further development of API.
 
-- Second is **KS_NODE**. This is application for esp32 and eps8266 microcontrollers written with arduino framework in Visual Studio Code and Platform IO. Before uploading this code to your devices, make sure that you set all proper values in the node.hpp file.
+- Second is **KS_NODE**. This is application for esp32 and eps8266 micro-controllers written with Arduino framework in Visual Studio Code and Platform IO. Before uploading this code to your devices, make sure that you set all proper values in the node.hpp file.
 
 ## How it works
-Mosquitto MQTT server is used for entire communication exchange. Every node has access only to its own topic named after name of the node itself. Every node has to have its unique index that is used as identificator in the script and in instructions. AAU has access to all topics + admin topic and it processes both incoming and outgoing messages according to rules set in kst script.
+Mosquitto MQTT server is used for entire communication exchange. Every node has access only to its own topic named after name of the node itself. Every node has to have its unique index that is used as identification in the script and in instructions. AAU has access to all topics + admin topic and it processes both incoming and outgoing messages according to rules set in .kst script.
 
-Entire comminication is encrypted. By default, self-signed certificate is used.
+Entire communication is encrypted. By default, self-signed certificate is used.
 
 There are multiple types of nodes, although at the moment only one type is implemented (MASTER is implemented).
 
@@ -27,19 +27,19 @@ There are multiple types of nodes, although at the moment only one type is imple
 - **SHUNT**; same as master type, but with additional functionality. In case when smart system has some remote group of nodes shunt serves as communication node towards remote group from the server side. All of messages for the shunt, bridge and other slave nodes in the remote group are grouped in single message on the AAU and sent to the shunt. Shunt removes from this message only those instructions with its own index and all the rest are sent to the bridge.
 
 - **BRIDGE**; is same as shunt just on the side of remote group. It receives message from the shunt, splits all of instructions by the index and reform messages for slaves connected to it. While shunt acts as a master, bridge acts as a slave. Responses from those slaves are again grouped together and as a single message sent back to the shunt that passes that message from entire remote group to the AAU.
-- **SLAVE**; slave is just an node in the remote group that has no direct access to the AAU but comunicates with it through BRIDGE and SHUNT channel.
+- **SLAVE**; slave is just an node in the remote group that has no direct access to the AAU but communicates with it through BRIDGE and SHUNT channel.
 
 ## How to install it
 For everything to work, first you will need private key and certificate. By default, self-signed certificate is used.
 
-After you properly install Mosquitto server, make sure that you have all of settings in AAU/support.py set correctly. Place script.kst in directory with path that you defined in AAU/support.py and run the app with python3 ./base.py. For any serious usage, consider turning this app into a service; with systemd on linux or service on windows.
+After you properly install Mosquitto server, make sure that you have all of settings in AAU/support.py set correctly. Place script.kst in directory with path that you defined in AAU/support.py and run the app with python3 ./base.py. For any serious usage, consider turning this app into a service; with systemd on Linux or service on Windows.
 
-On the side of nodes, make sure that all of data into node.hpp is set properly and upload the code to your microcontroller.
+On the side of nodes, make sure that all of data into node.hpp is set properly and upload the code to your micro controller.
 
 If you are using mqtt explorer, ideally you should be able to see communication between the node and AAU right away.
 
 ## How communication works
-On every 10 seconds, by default, node sends its own updated state to the mosqutitto server on topic with the same name as node itself. It sends confirmations for all of its sensors and switches splited by space. Message lookst like: 
+On every 10 seconds, by default, node sends its own updated state to the mosqutitto server on topic with the same name as node itself. It sends confirmations for all of its sensors and switches split by space. Message looks like: 
 
 - **Cr_11_C_0_1 Cr_11_R_0_27.5 Cr_11_R_1_70**.
 
@@ -51,9 +51,39 @@ When some action is necessary, AAU sends instruction to all nodes at once. Comma
 
 Once again, what is this? I stands for instruction, 11 is index of node that should accept that instruction, C stands for switch, S for sensor and T for transmitter. Next number represents index of the affected element and the last number is value that should be applied to that element. Of course, you can see that sensors doesn't have value to apply, because sensor is used only for reading.
 
-You can see that there is no confirmation for transmitter's value. That is because, transmitter is used only to send value. If you want to get present value back, you can write the code on microcontroller directly to copy value from the transmitter to virtual or dummy sensor, and therefore, that value will be read on every message exchange.
+You can see that there is no confirmation for transmitter's value. That is because, transmitter is used only to send value. If you want to get present value back, you can write the code on micro controller directly to copy value from the transmitter to virtual or dummy sensor, and therefore, that value will be read on every message exchange.
+
+## Communication over the administrative channel
+
+Now, we are in completely different dimension. Now, we are talking about sending commands to AAU over the administrative channel, or how to communicate with AAU in commanding way 👮🏻
+
+At the moment, there are 20 functions that you can sent to admin channel on your mqtt server in order to make AAU to obey.
+
+In all of cases argument index is index of the node that is affected. name is actual element that is affected like switch or variable.
+
+1. **writeVar**(index, name, value) sets a new value to existing variable. *with value arguments, a new value is provided*
+2. **changeTriggerValue**(index, name, triggerValue) *with triggerValue argument, a new value for trigger is provided*
+3. **changeListValue**(index, name, listValue) *with listValue argument, new value from the list is selected. In here, you should not provide value for the trigger but index from the list*
+4. **turnSwitch**(index, name) *changes value from 0 to 1 and vice versa on selected switch*
+5. **createVariable**(index, name, globalVar, varType, varValue) *creates new variable. globalVar is boolean argument that says whether variable is global or not. varType sets variable type and varValue, starting value for the new variable*
+6. **removeVariable**(index, name) *removes variable with provided name from the node with provided index*
+7. **addValConditionProgram**(index, name, numOfConditions, numOfResults, 5 arguments for every condition, 5 arguments for every result, funVariableName) *this is the most complicated case because num of results and num of conditions is not fix. there are 5 arguments for every condition and result. left side, left type, right side, right tyle and sign*
+8. **removeValConditionProgram**(index, name) *removes val condition program by provided name and from node with provided index*
+9. **addTimeLimProgram**(index, name, start, end) *creates new time limit program where start and end are the starting and ending time*
+10. **removeTimeLimProgram**(index, name) *removes time limit program by privided name from node with provided index*
+11. **addSerialProgram**(index, name, listOfSwitches, epoh, lastIndex, functionName=None) *creates new serial program. Argument listOfSwitches must be array that holds all of switches that should be affected by this program. epoh is time when change is commited. first switch that is going to be activated is one after last index. function name is name of function variable that could be connected to this program and used in later code*
+12. **removeSerialProgram**(index, name) *removes serial program by provided name and from node with provided index*
+13. **getSensorReadings**(index, name) *returns readings from the sensor by provided name and from node by provided index*
+14. **readVar**(index, name) *reads variable by provided name and from node by provided index*
+15. **readNodeCount**() *returns number of existing nodes*
+16. r**eadPrograms**(index) *reads all of programs from the node-index*
+17. **readElements**(index) *reads all of elements from the node-index*
+18. **readSensors**(index) *reads all of sensors from the node-index*
+19. **readVariables**(index) *reads all of variables from the node-index*
+20. **readHeader**(index) *reads header from the node-index*
 
 ## KST script
+
 ### Header
 Script is used to describe nodes and to program their functionality. You can deal with multiple nodes per script. Every node starts with header:
 
@@ -61,7 +91,7 @@ Script is used to describe nodes and to program their functionality. You can dea
 
 **}**
 
-1 is index of the node, "my first node" is name of the node in human readable format, and "myFirstNode" is name of the node that will be used for technical part(topic that this node is going to use for message excange will use this name), and finally [MASTER] defines the type of the node. Everything else about this node is going to be writter in between curly brackets.
+1 is index of the node, "my first node" is name of the node in human readable format, and "myFirstNode" is name of the node that will be used for technical part(topic that this node is going to use for message exchange will use this name), and finally [MASTER] defines the type of the node. Everything else about this node is going to be writter in between curly brackets.
 
 ### Sections
 There are four sections that define a node, all of of those are wrapper in XML style.
@@ -72,11 +102,11 @@ There are four sections that define a node, all of of those are wrapper in XML s
 - **\<programs>\</programs>**
 
 ### Variables
-Variables in .kst can be divided in two main groups; local and global. Local variables are used only inside local node, and global can be seen in the entire script. Every variable name starts with $ sign. If you want to refere to gloabal variable from your script you have to use sign $ then index of the node that variable is from and at the end name of variable itseld. For example $2$c5 is gloabal variable named $c5 from node with index of 5. Global variable is defined with global type.
+Variables in .kst can be divided in two main groups; local and global. Local variables are used only inside local node, and global can be seen in the entire script. Every variable name starts with $ sign. If you want to refer to global variable from your script you have to use sign $ then index of the node that variable is from and at the end name of variable itself. For example $2$c5 is gloabal variable named $c5 from node with index of 5. Global variable is defined with global type.
 
 Variable can be of type, int for integer, float, string where value is wrapped with "" or array. 
 
-Values for array must be in angle brackets, splitted by comma. If value is of string type, must be wrapped with "". Array can also contain range of values like 0-255.
+Values for array must be in angle brackets, split by comma. If value is of string type, must be wrapped with "". Array can also contain range of values like 0-255.
 
 Variable should be defined in single row like:
 
@@ -90,11 +120,11 @@ Sensors are defined in the fashion, sensor per line. Function sensor looks like:
 
 - **sensor("red", 0, $e1, $red);**
 
-First argument is name of the sensor in human readable form. Second argument is index of that sensor on microcotroller. Third argument is epoh(reading period). And fourth argument is variable that is going to store read value.
+First argument is name of the sensor in human readable form. Second argument is index of that sensor on micro controller. Third argument is epoh(reading period). And fourth argument is variable that is going to store read value.
 
 ### Elements
 There are three types of elements. Lists, triggers and switches.
-
+ 
 - **switch("light", 0, $c1, $fc1);** Same as with sensors, first argument of function switch is name of the switch in human readable format. Second argument is index of the switch. Third is variable that holds the state of the switch; 0 for off and 1 for on. Fourth argument is force state and by default this value is 0; Force state overrides third argument with on state. So if third argument says 1 and fourth argument says 0, switch is going to be on. But if third argument says 0 and fourth argument says 1, switch is going to be on. This is useful in cases when you control some switches using programs but from time to time you need to take manual control without rewriting program.
 
 - **trigger("AC switch", 1, $t1, $ft1);** Trigger is very similar to switch with few notable differences. First, arguments of the function trigger are the same as arguments of the function switch. While, function switch deals with switches, function trigger deals with transmitters. Here, transmitted values are also 0 and 1. When value of the trigger is switched it signalize some change. While with switches present state is important, with triggers is not. Triggers are very useful if you want to have some delayed effect. For example, at one moment you want to change some value from a list, but the change could take effect only when triggered with the value change.

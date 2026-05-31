@@ -56,7 +56,7 @@ void setup() {
     node = new NODE(NODE_MASTER, 
                     NODE_NO_SLAVE,
                     switches,
-                    11,
+                    1,
                     states,
                     transmitters,
                     sensors,
