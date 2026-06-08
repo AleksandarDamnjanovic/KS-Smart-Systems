@@ -125,7 +125,7 @@ def processAdmin(text):
 
         # 📎 this function needs only two arguments. first is node index and second is name of serial program to be remvoed
         elif text.__contains__("removeSerialProgram"):
-            tokens = re.findall(r"[\$a-z0-9A-Z\.]+", text)
+            tokens = re.findall(r"[\$a-z0-9A-Z\.\_\-\+]+", text)
 
             try:
                 if tokens.__len__() != 3:
@@ -150,7 +150,7 @@ def processAdmin(text):
         # 📎 necessary arguments are node index, name, list of switches, switch epoh, last index and function name
         # 📎 time stamp is not provided as argument. it is presumed to be 0
         elif text.__contains__("addSerialProgram"):
-            tokens = re.findall(r"[\$a-z0-9A-Z\.]+", text)
+            tokens = re.findall(r"[\$a-z0-9A-Z\.\_\-\+]+", text)
 
             try:
                 if tokens.__len__() != 7:
@@ -180,7 +180,7 @@ def processAdmin(text):
         # 📎 this function calls removeTimeLimProgram from script.py
         # 📎 necessary arguments are node index and function variable name
         elif text.__contains__("removeTimeLimProgram"):
-            tokens = re.findall(r"[\$a-z0-9A-Z\.]+", text)
+            tokens = re.findall(r"[\$a-z0-9A-Z\.\_\-\+]+", text)
 
             try:
                 if tokens.__len__() != 3:
@@ -206,7 +206,7 @@ def processAdmin(text):
         # 📎 therefore is recomended to call variable creating function or manually changing the script before
         # 📎 calling addTimeLimProgram function
         elif text.__contains__("addTimeLimProgram"):
-            tokens = re.findall(r"[\$a-z0-9A-Z\.]+", text)
+            tokens = re.findall(r"[\$a-z0-9A-Z\.\_\-\+]+", text)
 
             try:
                 if tokens.__len__() != 5:
