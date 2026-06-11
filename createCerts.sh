@@ -1,6 +1,9 @@
 #!/bin/bash
 
 mkdir -p ./certs
+mkdir -p ./AAU/certs
+mkdir -p ./AU/certs
+mkdir -p ./ks-smart-systems-skill/scripts/certs
 
 echo "---> Generating private keys for a certificate authority and a broker"
 openssl genrsa -out ./certs/ca.key 4096
