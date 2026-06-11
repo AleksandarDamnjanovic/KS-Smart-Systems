@@ -3,7 +3,11 @@
 # KS Smart System
 
 ## News
-As of jun 07 2026, KS Smart Systems support AI integration. Integration tested with Hermes and OpenCode, with various local models like Gemma 3 and Nemotron 3 Nano. At this moment, AI integration is still in early experimental phase; only switching is implemented.
+As of jun 07. 2026, KS Smart Systems support AI integration. Integration tested with Hermes and OpenCode, with various local models like Gemma 3 and Nemotron 3 Nano. At this moment, AI integration is still in early experimental phase; only switching is implemented.
+As of jun 11. 2026, installation helper scripts are added to the project.
+
+## Video tutorials
+[Basic explanations](https://youtu.be/n6Ak4GIscVg)
 
 ## Intro
 KS Smart System is built with idea for more abstract approach to building of smart home and other smart systems. When building smart home, engineer usually have to worry about both electric, electronics and computer elements of the system. With this solution, after system is set up from hardware perspective, everything else is going to be dealt with from KST script. You can consider KST script as programming language for your smart home for the purpose that, you will not have to worry, any more, about voltage and pins, but about switches, transmitters and sensors, meaning script primitives which define your system.
@@ -31,18 +35,21 @@ There are multiple types of nodes, although at the moment only one type is imple
 
 - **MASTER**; this type of node, has direct access to its own topic and its messages are processed directly by AAU.
 
-- **SHUNT**; same as master type, but with additional functionality. In case when smart system has some remote group of nodes shunt serves as communication node towards remote group from the server side. All of messages for the shunt, bridge and other slave nodes in the remote group are grouped in single message on the AAU and sent to the shunt. Shunt removes from this message only those instructions with its own index and all the rest are sent to the bridge.
+- **SHUNT**(not yet implemented); same as master type, but with additional functionality. In case when smart system has some remote group of nodes shunt serves as communication node towards remote group from the server side. All of messages for the shunt, bridge and other slave nodes in the remote group are grouped in single message on the AAU and sent to the shunt. Shunt removes from this message only those instructions with its own index and all the rest are sent to the bridge.
 
-- **BRIDGE**; is same as shunt just on the side of remote group. It receives message from the shunt, splits all of instructions by the index and reform messages for slaves connected to it. While shunt acts as a master, bridge acts as a slave. Responses from those slaves are again grouped together and as a single message sent back to the shunt that passes that message from entire remote group to the AAU.
-- **SLAVE**; slave is just an node in the remote group that has no direct access to the AAU but communicates with it through BRIDGE and SHUNT channel.
+- **BRIDGE**(not yet implemented); is same as shunt just on the side of remote group. It receives message from the shunt, splits all of instructions by the index and reform messages for slaves connected to it. While shunt acts as a master, bridge acts as a slave. Responses from those slaves are again grouped together and as a single message sent back to the shunt that passes that message from entire remote group to the AAU.
+- **SLAVE**(not yet implemented); slave is just an node in the remote group that has no direct access to the AAU but communicates with it through BRIDGE and SHUNT channel.
 
 ## How to install it
-For everything to work, first you will need private key and certificate. By default, self-signed certificate is used.
 
-After you properly install Mosquitto server, make sure that you have all of settings in AAU/support.py set correctly. Place script.kst in directory with path that you defined in AAU/support.py and run the app with python3 ./base.py. For any serious usage, consider turning this app into a service; with systemd on Linux or service on Windows.
-
+First install mosquitto server.
+Use helper scripts if you are using Linux:
+1. **createCerts.sh** creates self signed certificate and deploys them to appropriate directories across the project.
+2. **removeCerts.sh** removes all of, by previous command, created certs
+3. **setupMosquitto.sh**(needs sudo) sets up mosquitto server after installation. This script needs one argument; mosquitto broker's IP address.
+4. **removeOldMosquittoConf.sh**(needs sudo) removes all done bu setupMosquitto.sh.
+Make sure that you have all of settings in AAU/support.py set correctly. Place script.kst in directory with path that you defined in AAU/support.py and run the app with python3 ./base.py. For any serious usage, consider turning this app into a service; with systemd on Linux or service on Windows.
 On the side of nodes, make sure that all of data into node.hpp is set properly and upload the code to your micro controller.
-
 If you are using mqtt explorer, ideally you should be able to see communication between the node and AAU right away.
 
 ## How communication works
