@@ -32,7 +32,7 @@ echo "---> Changing ownership and permissions for new files and directories..."
 chown -R mosquitto:mosquitto /etc/mosquitto
 chmod 755 /etc/mosquitto
 chmod 755 /etc/mosquitto/certs
-chmod 755 /etc/mosquitto/ca_certificatres
+chmod 755 /etc/mosquitto/ca_certificates
 chmod 644 /etc/mosquitto/*.conf
 chmod 640 /etc/mosquitto/users.conf
 chmod 640 /etc/mosquitto/ca_certificates/ca.crt
