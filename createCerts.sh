@@ -31,8 +31,4 @@ cp ./certs/ca.crt ./AU/certs/ca.crt
 cp ./certs/broker.key ./AU/certs/broker.key
 cp ./certs/broker.crt ./AU/certs/broker.crt
 
-cp ./certs/ca.crt ./ks-smart-systems-skill/scripts/certs/ca.crt
-cp ./certs/broker.key ./ks-smart-systems-skill/scripts/certs/broker.key
-cp ./certs/broker.crt ./ks-smart-systems-skill/scripts/certs/broker.crt
-
 echo "DONE"

@@ -120,27 +120,24 @@ App can take 20 different commands with or without arguments in order to process
     1. node index
 
 ## Script path and execution
-Script PATH **`type your script path in here`**
+Script PATH ....................enter path ih here(remove dots too :D)......................
 
 ## Warning
 In front of every $, you must use \ like \$
 
 ## How to initialize service
-1. First get random integer that you are going to use for port number. You are going to get that number by executing rand script like `python PATH/rand.py`. You are going to remember that number as RANDPORT
-1. Start administrative unit from provided path with python and provide two arguments `tcp` and RANDPORT like `python PATH/au.py tcp RANDPORT`.
-2. When AU gets active, from that moment on, you are going to use `client.py` from Script PATH with python like `python PATH/client.py`. As first argument, you are always going to provide RANDPORT. For second argument and on, you are going to use app functions and its arguments; for example let's say that you set server to listen on port 11111, in that case, command would look like `python PATH/client.py RANDPORT read-variables 1`
-3. get number of nodes from entire system by executing command `read-node-count`. keep in mind that nodes are enumerated from 1 on ...
-4. for every node index execute command `read-header` with node index as argument in order to get header text. Structure of header text is better explained in skill documentation `header.md`
-5. memorize all of node names and corresponding indexes. those information are necessary for all other processes.
+1. You are going to use `client.py` from Script PATH with python like `python PATH/client.py`. As first argument, you are always going to provide port number 11111. For second argument and on, you are going to use app functions and its arguments; for example, command would look like `python PATH/client.py 11111 read-variables 1`
+2. get number of nodes from entire system by executing command `read-node-count`. keep in mind that nodes are enumerated from 1 on ...
+3. for every node index execute command `read-header` with node index as argument in order to get header text. Structure of header text is better explained in skill documentation `header.md`
+4. memorize all of node names and corresponding indexes. those information are necessary for all other processes.
 
 ## Exact procedure
-1. First initialize the service.
-2. Listen the request from the user.
+1. Listen the request from the user.
     1. In case of switches user can say something like `Turn on first light in my living room`, `Switch the first light in livin room` or `Turn livin room light 1 off` or any variation of those. Proceed to execution in this way:
-        1. Understand what is location, what is object and what is action that needs to be performed. In our example, it is obvious that location is `living room`, object is `light1` and action is `turning switch` on or off(depends exactly what user needs)
-        2. Now, when you know the location, first check what node name the best describes that location. If you have nodes like `dining room`, `living room`, `hool`, it is obvious that the switch is located in the node `living room`. Take into consideration the index of node `living room` because you are going to need it later on.
-        3. now, you need to find exact element. elements are better described in skill documentation `elements.md`. you are going to execute command `read-elements` with the node index in order to get all of elements from the node. Now, take into account only switches, because in this case, we don't need the rest. Find the switch with the name that best describes what user needs. For example if user needs `light 1` or `first light` look for the switch name that fits description. Memorize both exact switch name and the force variable(that is the last argument from the switch)
-        4. now, you need to be sure what user actually wants, and basically in here, you have two different options
+    2. Understand what is location, what is object and what is action that needs to be performed. In our example, it is obvious that location is `living room`, object is `light1` and action is `turning switch` on or off(depends exactly what user needs)
+    3. Now, when you know the location, first check what node name the best describes that location. If you have nodes like `dining room`, `living room`, `hool`, it is obvious that the switch is located in the node `living room`. Take into consideration the index of node `living room` because you are going to need it later on.
+    4. now, you need to find exact element. elements are better described in skill documentation `elements.md`. you are going to execute command `read-elements` with the node index in order to get all of elements from the node. Now, take into account only switches, because in this case, we don't need the rest. Find the switch with the name that best describes what user needs. For example if user needs `light 1` or `first light` look for the switch name that fits description. Memorize both exact switch name and the force variable(that is the last argument from the switch)
+     5. now, you need to be sure what user actually wants, and basically in here, you have two different options
            - if he says that he wants to switch the light, than use command `turn-switch` and provide as arguments node index and switch name
            - if he says that he needs switch turned on or off, use command `write-variable` and provide as arguments 1. node index, 2. switch force variable name, 3. 1 or 0(in case of third argument, 1 is going to be provided if user wants switch turned on, or 0 if he wants switch turned off). 
 2. At the end, when you get the result from the terminal, inform user about it.
