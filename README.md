@@ -8,9 +8,9 @@ As of jun 11. 2026, installation helper scripts are added to the project.
 As of jun 17. 2026, some bugs are fixed, AI integration is simplified, and video tutorials are published.
 
 ## Video tutorials
-[Basic explanations](https://youtu.be/n6Ak4GIscVg)
-[Installation tutorial for version 0.3.0](https://youtu.be/pGiK0WKn_74)
-[AI integration with Hermes Agent and LM Studio local model via Telegram channel](https://youtu.be/Vrgk4hY9c7Y)
+1. [Basic explanations](https://youtu.be/n6Ak4GIscVg)
+2. [Installation tutorial for version 0.3.0](https://youtu.be/pGiK0WKn_74)
+3. [AI integration with Hermes Agent and LM Studio local model via Telegram channel](https://youtu.be/Vrgk4hY9c7Y)
 
 ## Intro
 KS Smart System is built with idea for more abstract approach to building of smart home and other smart systems. When building smart home, engineer usually have to worry about both electric, electronics and computer elements of the system. With this solution, after system is set up from hardware perspective, everything else is going to be dealt with from KST script. You can consider KST script as programming language for your smart home for the purpose that, you will not have to worry, any more, about voltage and pins, but about switches, transmitters and sensors, meaning script primitives which define your system.
