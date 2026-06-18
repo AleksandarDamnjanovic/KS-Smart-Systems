@@ -6,6 +6,7 @@
 As of jun 07. 2026, KS Smart Systems support AI integration. Integration tested with Hermes and OpenCode, with various local models like Gemma 3 and Nemotron 3 Nano. At this moment, AI integration is still in early experimental phase; only switching is implemented.
 As of jun 11. 2026, installation helper scripts are added to the project.
 As of jun 17. 2026, some bugs are fixed, AI integration is simplified, and video tutorials are published.
+As of jun 18. 2026, AI skill supports more function. Future update are expected to finish AI program handling.
 
 ## Video tutorials
 1. [Basic explanations](https://youtu.be/n6Ak4GIscVg)
@@ -57,6 +58,8 @@ Make sure that you have all of settings in AAU/support.py set correctly.
 Place script.kst in directory with path that you defined in AAU/support.py and run the app with python3 ./base.py. For any serious usage, consider turning this app into a service; with systemd on Linux or service on Windows.
 On the side of nodes, make sure that all of data into node.hpp is set properly and upload the code to your micro controller.
 If you are using mqtt explorer, ideally you should be able to see communication between the node and AAU right away.
+
+Usage is explained in section [AU](#au).
 
 ## How communication works
 On every 10 seconds, by default, node sends its own updated state to the mosqutitto server on topic with the same name as node itself. It sends confirmations for all of its sensors and switches split by space. Message looks like: 
@@ -238,7 +241,7 @@ Exampe of entire node:
 }
 ```
 ## AU
-As is already said in [Section **What this solution contains**](#what-this-solution-contains) au can work in two modes; cli and tcp. If you want to start it in cli mode, run command au directory `python au.py cli`. If instead you wish to use it in tcp mode run `python au.py tcp 12345` where 12345 is port number(you can use any available port number).
+As is already said in [Section **What this solution contains**](#what-this-solution-contains) AU can work in two modes; cli and tcp. If you want to start it in cli mode, run command au directory `python au.py cli`. If instead you wish to use it in tcp mode run `python au.py tcp 11111` where 11111 is port number. Port number 11111 is mandatory if you intent to use AI integration because ai skill is written around that port number. If you intent to use it by manually calling client.py or creating your own app, you can use any port number by your choosing.
 
 If you want to use it with cli and to list available commands run it with `python au.py help`. With cli already running, you can run command `help` in the app terminal to get list of available functions. Command `exit` can be used to shut AU down.
 
@@ -323,7 +326,7 @@ List of available AU commands:
 20. **read-header** reads header from the node
     1. node index
 
-Although tcp mode is built for the purpose of AI integration and, possibly, APIs, you can use it manually with client.py from the same directory; if you want to do so, first make sure that both KS AAU and KS AU are running and then use python to run client.py with arguments of port number, AU is operating on, and, finally, command and command's arguments line in following example `python client.py 12345 write-variable 1 \$varName 1` or `python client.py 12345 exit`
+Although tcp mode is built for the purpose of AI integration and, possibly, APIs, you can use it manually with client.py from the same directory; if you want to do so, first make sure that both KS AAU and KS AU are running and then use python to run client.py with arguments of port number, AU is operating on, and, finally, command and command's arguments line in following example `python client.py 11111 write-variable 1 \$varName 1` or `python client.py 11111 exit`
 
 ## AI skill
 Skill is tested with Hermes and OpenCode. In order to install it, just copy entire skill directory to skill location of you agent. This directory contains SKILL.md and directories docs and scripts.
