@@ -3,10 +3,10 @@
 # KS Smart System
 
 ## News
-As of jun 07. 2026, KS Smart Systems support AI integration. Integration tested with Hermes and OpenCode, with various local models like Gemma 3 and Nemotron 3 Nano. At this moment, AI integration is still in early experimental phase; only switching is implemented.
-As of jun 11. 2026, installation helper scripts are added to the project.
-As of jun 17. 2026, some bugs are fixed, AI integration is simplified, and video tutorials are published.
-As of jun 18. 2026, AI skill supports more function. Future update are expected to finish AI program handling.
+- As of jun 07. 2026, KS Smart Systems support AI integration. Integration tested with Hermes and OpenCode, with various local models like Gemma 3 and Nemotron 3 Nano. At this moment, AI integration is still in early experimental phase; only switching is implemented.
+- As of jun 11. 2026, installation helper scripts are added to the project.
+- As of jun 17. 2026, some bugs are fixed, AI integration is simplified, and video tutorials are published.
+- As of jun 18. 2026, AI skill supports more function. Future update are expected to finish AI program handling.
 
 ## Video tutorials
 1. [Basic explanations](https://youtu.be/n6Ak4GIscVg)
