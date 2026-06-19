@@ -7,6 +7,7 @@
 - As of jun 11. 2026, installation helper scripts are added to the project.
 - As of jun 17. 2026, some bugs are fixed, AI integration is simplified, and video tutorials are published.
 - As of jun 18. 2026, AI skill supports more function. Future update are expected to finish AI program handling.
+- As of jun 19. 2026 architecture diagram added to the project and skill is updated so an agent will now know how to create serial program.
 
 ## Video tutorials
 1. [Basic explanations](https://youtu.be/n6Ak4GIscVg)
@@ -44,6 +45,8 @@ There are multiple types of nodes, although at the moment only one type is imple
 - **BRIDGE**(not yet implemented); is same as shunt just on the side of remote group. It receives message from the shunt, splits all of instructions by the index and reform messages for slaves connected to it. While shunt acts as a master, bridge acts as a slave. Responses from those slaves are again grouped together and as a single message sent back to the shunt that passes that message from entire remote group to the AAU.
 
 - **SLAVE**(not yet implemented); slave is just an node in the remote group that has no direct access to the AAU but communicates with it through BRIDGE and SHUNT channel.
+
+![](Architecture.jpg)
 
 ## How to install it
 
